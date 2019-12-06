@@ -1,0 +1,25 @@
+{
+  "name": "final",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osu-cs290-f19/final-project-cs290-final-project-fransiscoh.git"
+  },
+  "keywords": [],
+  "author": "Gurren, lestere, Segfault, much_gangster",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/osu-cs290-f19/final-project-cs290-final-project-fransiscoh/issues"
+  },
+  "homepage": "https://github.com/osu-cs290-f19/final-project-cs290-final-project-fransiscoh#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "handlebars": "^4.5.3"
+  }
+}

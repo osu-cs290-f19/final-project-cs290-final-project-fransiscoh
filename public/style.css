@@ -1,0 +1,46 @@
+body {
+    margin: 0px;
+}
+
+#content-container {
+    margin-left: 10px;
+}
+
+header {
+    background-color: plum;
+    margin: 0px;
+    height: 76px;
+    align-items: center;
+}
+
+#header-left {
+    float: left;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#header-right {
+    float: right;
+    padding-right: 20px;
+}
+
+header img {
+    height: 30px;
+}
+
+h1 {
+    margin: 0px;
+    padding: 20px 10px;
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 30px;
+}
+
+h2 {
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 28px;
+}
+
+#member-info {
+    padding-left: 10px;
+}

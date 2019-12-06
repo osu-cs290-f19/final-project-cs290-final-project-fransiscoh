@@ -12,6 +12,10 @@ app.get("/", function(req, res, next) {
     res.status(200).render("index", {});
 });
 
+app.get("/about", function(req, res, next) {
+    res.status(200).render("about", {});
+});
+
 app.use(express.static('public'));
 
 app.get("*", function(req, res, next) {

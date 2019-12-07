@@ -99,3 +99,23 @@ a:hover {
     max-height: 200px;
     min-height: 50px;
 }
+
+#uploads-container {
+    display: flex;
+}
+
+#img-container {
+    background-color: lightgrey;
+    border-color: black;
+    border-style: solid;
+    border-radius: 5px;
+    width: max-content;
+    height: max-content;
+    margin: 0px 10px;
+    padding: 5px;
+}
+
+#img-container img {
+    max-height: 100px;
+    min-height: 50px;
+}

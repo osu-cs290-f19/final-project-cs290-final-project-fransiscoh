@@ -2,7 +2,8 @@ var path = require('path');
 var express = require('express');
 var exphbs = require('express-handlebars');
 var multer = require('multer');
-var upload = multer({dest: __dirname + '/uploads/images'});
+var fs = require('fs');
+var upload = multer({dest: __dirname + '/public/uploads/images'});
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -11,7 +12,10 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 app.get("/", function(req, res, next) {
-    res.status(200).render("index", {});
+    var uploadList = require('./uploads.json');
+    res.status(200).render("index", {
+        uploads: uploadList
+    });
 });
 
 app.get("/about", function(req, res, next) {
@@ -20,9 +24,35 @@ app.get("/about", function(req, res, next) {
 
 app.use(express.static('public'));
 
-app.post('/upload', upload.single('photo'), (req, res) => {
+app.post('/upload', upload.single('photo'), (req, res, next) => {
     if(req.file) {
-        res.json(req.file);
+        var index = req.file.path.indexOf("uploads")-1;
+        var path = req.file.path.substring(index);
+        var image = {
+            src: path,
+            alt: req.file.originalname
+        }
+        // console.log(req.file);
+        var imageList = require('./uploads.json');
+        var write = true;
+        // console.log(imageList);
+
+        for(var i = 0; i < imageList.length; i++) {
+            if(image.alt == imageList[i].alt) {
+                write = false;
+            }
+        }
+
+        if(write) {
+
+            imageList.push(image);
+        }
+
+        fs.writeFile('./uploads.json', JSON.stringify(imageList), function (err) {
+            if (err) throw err;
+            console.log('Saved!');
+        });
+        res.status(200).redirect("/");
     }
     else throw 'error';
 });

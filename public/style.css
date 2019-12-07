@@ -94,3 +94,8 @@ a:hover {
 #content-container > h2:nth-child(1) {
     margin-bottom: 0px;
 }
+
+#myImg {
+    max-height: 200px;
+    min-height: 50px;
+}

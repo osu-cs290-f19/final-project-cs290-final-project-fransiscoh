@@ -5,11 +5,16 @@ body {
 #content-container {
     margin-left: 10px;
     background-color: rgb(255, 204, 212);
-    padding: 1px 20px;
     margin: 20px;
+    padding: 10px;
     border-radius: 5px;
-    width: 50%;
+    width: max-content;
 }
+
+#content-container h2 {
+    margin: 0px;
+}
+
 
 header {
     background-color: rgb(190, 132, 190);
@@ -76,10 +81,14 @@ a:hover {
     margin: 0px;
 }
 
+#error-container h3 {
+    margin: 5px;
+}
+
 #error-container img {
     height: 30px;
     margin-left: 10px;
-    margin-top: 12px;
+    margin-top: 3px;
 }
 
 #content-container > h2:nth-child(1) {

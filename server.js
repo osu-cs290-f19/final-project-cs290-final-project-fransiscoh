@@ -19,6 +19,7 @@ app.get("/about", function(req, res, next) {
 app.use(express.static('public'));
 
 app.get("*", function(req, res, next) {
+    console.log("404 url:", req.url);
     res.status(404).render("404", {
         url: req.url
     })

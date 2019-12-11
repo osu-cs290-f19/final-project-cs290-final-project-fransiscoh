@@ -6,6 +6,14 @@ var upload = multer({dest: __dirname + '/public/uploads/images'});
 const tf = require('@tensorflow/tfjs-node');
 const fs = require('fs').promises;
 
+const model_path = "./SavedModel/saved_model";
+
+async function get_model() {
+    model = await tf.node.loadSavedModel(model_path);
+}
+
+get_model()
+
 var app = express();
 var port = process.env.PORT || 3000;
 
@@ -61,7 +69,6 @@ app.post('/upload', upload.single('photo'), (req, res, next) => {
 app.post('/upscale/:imageName', function(req, res, next) {
     const image_path = "./public/uploads/images/" + req.params.imageName;
     console.log(image_path);
-    const model_path = "./SavedModel/saved_model";
     main(model_path, image_path);
 });
 
@@ -81,21 +88,19 @@ async function tensor_to_png(tensor) {
         .toInt();
     return tf.node.encodePng(integer_image);
 }
- 
-async function main(model_path, image_path) {
-    console.log(model_path);
-    const model = await tf.node.loadSavedModel(model_path);
-    const image_data = await fs.readFile(image_path);
-    const image_tensor = image_data_to_tensor(image_data);
+
+async function predict_png(image_data) {
+    var image_tensor = image_data_to_tensor(image_data);
     const upsized_tensor = model.predict(image_tensor);
-    const upsized_image_data = await tensor_to_png(upsized_tensor);
-    await fs.writeFile('./out.png', upsized_image_data);
+    return tensor_to_png(upsized_tensor);
 }
 
 app.post('/infer', function(req, res, next) {
     req.on('data', function(dat) { 
         var buf = Buffer.from(dat, 'base64');
-        console.log("Img:", image_data_to_tensor(buf));
+        var upscaled_png = predict_png(buf);
+        console.log(upscaled_png);
+        res.end(upscaled_png);
     });
 });
 

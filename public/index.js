@@ -21,12 +21,12 @@ function croppers() {
         highlight: false,
         dragCrop: false,
         dragMode: 'move',
-        cropBoxResizable: false,
+        cropBoxResizable: true,
         zoomOnWheel: false,
         scalable: false,
         zoomalbe: false,
         ready() {
-            this.cropper.setCropBoxData({"width":68,"height":68});
+            //this.cropper.setCropBoxData({"width":268,"height":268});
         },
         crop(event) {
 
@@ -47,8 +47,8 @@ function croppers() {
             if (postRequest.readyState == XMLHttpRequest.DONE) {
                 console.log(postRequest.responseText);
                 var image = new Image();
-                image.src = 'data:image/png;base64,' + postRequest.responseText;
-                document.body.appendChild(image);
+                var image_data = 'data:image/png;base64,' + postRequest.responseText;
+                document.getElementById("upscaled-image").src = image_data;
             }
         }
     });

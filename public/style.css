@@ -2,6 +2,8 @@ body {
     margin: 0px;
 }
 
+
+
 #content-container {
     margin-left: 10px;
     background-color: rgb(255, 204, 212);
@@ -116,6 +118,14 @@ a:hover {
 }
 
 #img-container img {
+    max-width: 100%; /* This rule is very important, please do not ignore this! */
     max-height: 100px;
     min-height: 50px;
+}
+
+img {
+  display: block;
+
+  /* This rule is very important, please don't ignore this */
+  max-width: 100%;
 }

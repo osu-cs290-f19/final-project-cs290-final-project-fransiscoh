@@ -11,9 +11,44 @@
         <input type="submit" value="upload">
 </form>
 
+
 <h3>Uploads:</h3>
 <div id="uploads-container">
     {{#each uploads}}
         {{> upload}}
     {{/each}}
 </div>
+
+<script>
+
+const image = document.getElementById('image').getElementsByTagName('img')[0];
+var cropper = new Cropper(image, {
+  aspectRatio: 1 / 1,
+  wheelZoomRatio: 0,
+  autoCropArea: 0,
+  strict: false,
+  guides: false,
+  highlight: false,
+  dragCrop: false,
+  dragMode: 'move',
+  cropBoxResizable: false,
+//  cropBoxMovable: false,
+//  toggleDragModeOnDblclick: false,
+  zoomOnWheel: false,
+  scalable: false,
+  zoomalbe: false,
+  ready() {
+    this.cropper.setCropBoxData({"width":60,"height":60});
+  },
+  crop(event) {
+    console.log(event.detail.x);
+    console.log(event.detail.y);
+    console.log(event.detail.width);
+    console.log(event.detail.height);
+    console.log(event.detail.rotate);
+    console.log(event.detail.scaleX);
+    console.log(event.detail.scaleY);
+  },
+});
+
+</script>

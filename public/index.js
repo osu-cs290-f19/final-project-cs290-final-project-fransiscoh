@@ -44,6 +44,7 @@ function croppers(){
     });
     }
 
+
 var imageArray = document.getElementsByClassName("img-container");
 
 for (var i = 0; i < imageArray.length; i++) {
@@ -73,4 +74,3 @@ upscaleButton.addEventListener("click", function () {
     postRequest.open('POST', requestURL);
     postRequest.send();
 });
-

@@ -1,5 +1,6 @@
 body {
     margin: 0px;
+    min-width: 500px;
 }
 
 
@@ -10,7 +11,7 @@ body {
     margin: 20px;
     padding: 10px;
     border-radius: 5px;
-    width: max-content;
+    max-width: max-content;
 }
 
 #content-container h2 {
@@ -103,24 +104,31 @@ a:hover {
 }
 
 #uploads-container {
-    display: flex;
+    display: inline-flex;
+    flex-wrap: wrap;
 }
 
-#img-container {
-    background-color: lightgrey;
+.img-container {
+    /* background-color: lightgrey; */
     border-color: black;
     border-style: solid;
     border-radius: 5px;
     width: max-content;
     height: max-content;
-    margin: 0px 10px;
+    margin: 0px 10px 10px;
     padding: 5px;
 }
 
-#img-container img {
+
+.img-container img {
     max-width: 100%;
 //    max-height: 100px;
 //    min-height: 50px;
+}
+
+
+.highlight {
+    background-color: green;
 }
 
 img {

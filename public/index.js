@@ -10,6 +10,14 @@
 //     });
 // });
 
+function validateForm(){
+    const fLength = document.getElementsByTagName('input')[0].files.length;
+    if(fLength == 0){
+        alert("Please Select a Photo");
+        return false;
+    }
+}
+
 function croppers(){
     const image = document.getElementsByClassName('img-container highlight')[0].getElementsByTagName('img')[0];
     var cropper = new Cropper(image, {

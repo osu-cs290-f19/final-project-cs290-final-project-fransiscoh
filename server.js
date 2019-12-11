@@ -101,7 +101,8 @@ app.post('/infer', function(req, res, next) {
     req.on('data', function(dat) { 
         var buf = Buffer.from(dat, 'base64');
         predict_png(buf).then(function(upscaled_png) {
-            res.end(upscaled_png.toString('base64'));
+            let buff = new Buffer(upscaled_png);
+            res.end(buff.toString('base64'));
         });
     });
 });

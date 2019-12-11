@@ -36,14 +36,19 @@ function croppers() {
     var add = document.querySelector('#btnCrop');
     add.addEventListener('click', function() {
         var postRequest = new XMLHttpRequest();
+
         postRequest.open('POST', 'infer');
+
         cropper.getCroppedCanvas().toBlob(function(blob) {
-            console.log(blob);
             postRequest.send(blob);
         });
+
         postRequest.onreadystatechange = function() {
             if (postRequest.readyState == XMLHttpRequest.DONE) {
-                alert(postRequest.responseText);
+                console.log(postRequest.responseText);
+                var image = new Image();
+                image.src = 'data:image/png;base64,' + postRequest.responseText;
+                document.body.appendChild(image);
             }
         }
     });

@@ -26,7 +26,7 @@ function croppers() {
         scalable: false,
         zoomalbe: false,
         ready() {
-            this.cropper.setCropBoxData({"width":80,"height":80});
+            this.cropper.setCropBoxData({"width":61.5384,"height":61.5384});
         },
         crop(event) {
 
@@ -37,10 +37,7 @@ function croppers() {
     add.addEventListener('click', function() {
         var postRequest = new XMLHttpRequest();
         postRequest.open('POST', 'infer/');
-        //postRequest.send(cropper.getCroppedCanvas());
-        var canvas = cropper.getCroppedCanvas();
-
-        canvas.toBlob(function(blob) {
+        cropper.getCroppedCanvas().toBlob(function(blob) {
             postRequest.send(blob);
         });
 

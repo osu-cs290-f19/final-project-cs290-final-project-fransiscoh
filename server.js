@@ -97,7 +97,6 @@ app.post('/infer', function(req, res, next) {
         var buf = Buffer.from(dat, 'base64');
         console.log("Img:", image_data_to_tensor(buf));
     });
-    //console.log(req.params);
 });
 
 app.get("*", function(req, res, next) {

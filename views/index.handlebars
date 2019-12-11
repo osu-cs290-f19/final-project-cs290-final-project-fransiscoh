@@ -20,8 +20,10 @@
         {{> upload}}
     {{/each}}
 </div>
-
   <div id="crops">
+
+
+
   </div>
 
 <script>
@@ -54,13 +56,34 @@ var cropper = new Cropper(image, {
 });
 
 var add = document.querySelector('#btnCrop');
+// add.addEventListener('click', function(){
+//     var croppedImageDataURL = cropper.getCroppedCanvas().toDataURL("image/png");
+//     var createCropDiv = document.createElement('div');
+//     createCropDiv.setAttribute('id', 'crop');
+//     document.getElementById('crops').appendChild(createCropDiv);
+//     var cropped = document.createElement('img');
+//     cropped.setAttribute("src", croppedImageDataURL);
+//     document.getElementById('crop').appendChild(cropped);
+// //    .append( $('<img>').attr('src', croppedImageDataURL));
+//     console.log(croppedImageDataURL);
+// });
+
+
+
 add.addEventListener('click', function(){
+    var all = true;
     var croppedImageDataURL = cropper.getCroppedCanvas().toDataURL("image/png");
-    var cropped = document.createElement('img');
-    cropped.setAttribute("src", croppedImageDataURL);
-    document.getElementById('crops').appendChild(cropped);
+    var createCropTemplate = Handlebars.templates.upload;
+    var newCropHTML = createCropTemplate({
+      all: all,
+      src: croppedImageDataURL,
+      alt: undefined
+    });
+    var cropContainer = document.getElementById('crops');
+    cropContainer.insertAdjacentHTML('beforeend', newCropHTML);
 //    .append( $('<img>').attr('src', croppedImageDataURL));
     console.log(croppedImageDataURL);
 });
+
 
 </script>

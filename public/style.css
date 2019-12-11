@@ -15,7 +15,6 @@ body {
     margin: 0px;
 }
 
-
 header {
     background-color: rgb(190, 132, 190);
     margin: 0px;
@@ -113,9 +112,33 @@ a:hover {
     height: max-content;
     margin: 0px 10px;
     padding: 5px;
+    position: relative;
 }
 
 #img-container img {
     max-height: 100px;
     min-height: 50px;
+}
+
+#img-container .favorite-button {
+  background: url('/assets/favicon.ico');
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  right: 5px;
+  bottom: 5px;
+  /* top: 50%; */
+  transform: translate(-50%, -50%);
+  /* -ms-transform: translate(-50%, -50%); */
+  background-color: rgb(190, 132, 190);
+  padding: 5px;
+  color: white;
+  font-size: 8px;
+  border: none;
+  border-radius: 10px;
+  opacity: .6;
+}
+
+#img-container .favorite-button:hover{
+  opacity: 1;
 }

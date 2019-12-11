@@ -1,0 +1,19 @@
+<h2>
+    Here are some favorited images!
+</h2>
+
+<h3>
+
+</h3>
+
+<!-- <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" accept="image/*" name="photo" >
+        <input type="submit" value="upload">
+</form> -->
+
+<h3>Favorites:</h3>
+<div id="favorites-container">
+    {{#each favorites}}
+        {{> favorite}}
+    {{/each}}
+</div>

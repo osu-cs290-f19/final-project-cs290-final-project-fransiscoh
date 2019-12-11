@@ -8,6 +8,12 @@ var upload = multer({dest: __dirname + '/public/uploads/images'});
 var app = express();
 var port = process.env.PORT || 3000;
 
+var hbs = exphbs.create({
+    helpers:  {
+      favorite: function() { console.log('favorite test'); }
+    }
+})
+
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
@@ -15,6 +21,13 @@ app.get("/", function(req, res, next) {
     var uploadList = require('./uploads.json');
     res.status(200).render("index", {
         uploads: uploadList
+    });
+});
+
+app.get("/favorites", function(req, res, next) {
+    var favoriteList = require('./uploads.json')
+    res.status(200).render("favorites", {
+        uploads: favoriteList
     });
 });
 

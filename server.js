@@ -57,10 +57,10 @@ app.post('/upload', upload.single('photo'), (req, res, next) => {
     else throw 'error';
 });
 
-// app.post('/path', upload.single('avatar'), function (req, res, next) {
-//     // req.file is the `avatar` file
-//     // req.body will hold the text fields, if there were any
-//   })
+app.post('/upscale/:imageName', function(req, res, next) {
+    var imagePath = "./public/uploads/images/" + req.params.imageName;
+    console.log(imagePath);
+});
 
 app.get("*", function(req, res, next) {
     console.log("404 url:", req.url);

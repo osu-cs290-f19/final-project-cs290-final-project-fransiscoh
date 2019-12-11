@@ -26,7 +26,7 @@ function croppers() {
         scalable: false,
         zoomalbe: false,
         ready() {
-            this.cropper.setCropBoxData({"width":61.5384,"height":61.5384});
+            this.cropper.setCropBoxData({"width":68,"height":68});
         },
         crop(event) {
 

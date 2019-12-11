@@ -73,7 +73,7 @@ app.post('/upscale/:imageName', function(req, res, next) {
 });
 
 function image_data_to_tensor(image_data) {
-    return tf.node.decodeImage(image_data)
+    return tf.node.decodeImage(image_data, 3) // Decode with 3 channels
         .div(255.0)     // Make image intensities within 0.0 and 1.0
         .expandDims(0)  // Make it into one "Batch" for the neural net
         .toFloat();
@@ -91,16 +91,18 @@ async function tensor_to_png(tensor) {
 
 async function predict_png(image_data) {
     var image_tensor = image_data_to_tensor(image_data);
+    console.log(image_tensor);
     const upsized_tensor = model.predict(image_tensor);
-    return tensor_to_png(upsized_tensor);
+    console.log(upsized_tensor);
+    return await tensor_to_png(upsized_tensor);
 }
 
 app.post('/infer', function(req, res, next) {
     req.on('data', function(dat) { 
         var buf = Buffer.from(dat, 'base64');
-        var upscaled_png = predict_png(buf);
-        console.log(upscaled_png);
-        res.end(upscaled_png);
+        predict_png(buf).then(function(upscaled_png) {
+            res.end(upscaled_png.toString('base64'));
+        });
     });
 });
 

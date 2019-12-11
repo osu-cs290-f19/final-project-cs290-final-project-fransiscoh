@@ -10,7 +10,9 @@
         <input type="file" accept="image/*" name="photo" >
         <input type="submit" value="upload">
 </form>
-
+<form action="/upload" method="post" enctype="multipart/form-data">
+  <input type="button" id="btnCrop" value="Crop" />
+</form>
 
 <h3>Uploads:</h3>
 <div id="uploads-container">
@@ -19,8 +21,10 @@
     {{/each}}
 </div>
 
-<script>
+  <div id="crops">
+  </div>
 
+<script>
 const image = document.getElementById('image').getElementsByTagName('img')[0];
 var cropper = new Cropper(image, {
   aspectRatio: 1 / 1,
@@ -32,8 +36,6 @@ var cropper = new Cropper(image, {
   dragCrop: false,
   dragMode: 'move',
   cropBoxResizable: false,
-//  cropBoxMovable: false,
-//  toggleDragModeOnDblclick: false,
   zoomOnWheel: false,
   scalable: false,
   zoomalbe: false,
@@ -49,6 +51,16 @@ var cropper = new Cropper(image, {
     console.log(event.detail.scaleX);
     console.log(event.detail.scaleY);
   },
+});
+
+var add = document.querySelector('#btnCrop');
+add.addEventListener('click', function(){
+    var croppedImageDataURL = cropper.getCroppedCanvas().toDataURL("image/png");
+    var cropped = document.createElement('img');
+    cropped.setAttribute("src", croppedImageDataURL);
+    document.getElementById('crops').appendChild(cropped);
+//    .append( $('<img>').attr('src', croppedImageDataURL));
+    console.log(croppedImageDataURL);
 });
 
 </script>

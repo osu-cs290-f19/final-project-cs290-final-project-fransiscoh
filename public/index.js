@@ -10,6 +10,7 @@
 //     });
 // });
 
+
 function validateForm(){
     const fLength = document.getElementsByTagName('input')[0].files.length;
     if(fLength == 0){
@@ -21,43 +22,53 @@ function validateForm(){
 function croppers(){
     const image = document.getElementsByClassName('img-container highlight')[0].getElementsByTagName('img')[0];
     var cropper = new Cropper(image, {
-      aspectRatio: 1 / 1,
-      wheelZoomRatio: 0,
-      autoCropArea: 0,
-      strict: false,
-      guides: false,
-      highlight: false,
-      dragCrop: false,
-      dragMode: 'move',
-      cropBoxResizable: false,
-      zoomOnWheel: false,
-      scalable: false,
-      zoomalbe: false,
-      ready() {
-        this.cropper.setCropBoxData({"width":60,"height":60});
-      },
-      crop(event) {
-    
-      },
+        aspectRatio: 1 / 1,
+        wheelZoomRatio: 0,
+        autoCropArea: 0,
+        strict: false,
+        guides: false,
+        highlight: false,
+        dragCrop: false,
+        dragMode: 'move',
+        cropBoxResizable: false,
+        zoomOnWheel: false,
+        scalable: false,
+        zoomalbe: false,
+        ready() {
+            this.cropper.setCropBoxData({"width":68,"height":68});
+        },
+        crop(event) {
+
+        },
     });
-    
+
     var add = document.querySelector('#btnCrop');
-    add.addEventListener('click', function(){
-        var croppedImageDataURL = cropper.getCroppedCanvas().toDataURL("image/png");
-        var cropped = document.createElement('img');
-        cropped.setAttribute("src", croppedImageDataURL);
-        document.getElementById('crops').appendChild(cropped);
-    //    .append( $('<img>').attr('src', croppedImageDataURL));
-        console.log(croppedImageDataURL);
+    add.addEventListener('click', function() {
+        var postRequest = new XMLHttpRequest();
+
+        postRequest.open('POST', 'infer');
+
+        cropper.getCroppedCanvas().toBlob(function(blob) {
+            postRequest.send(blob);
+        });
+
+        postRequest.onreadystatechange = function() {
+            if (postRequest.readyState == XMLHttpRequest.DONE) {
+                console.log(postRequest.responseText);
+                var image = new Image();
+                image.src = 'data:image/png;base64,' + postRequest.responseText;
+                document.body.appendChild(image);
+            }
+        }
     });
-    }
+}
 
 
 var imageArray = document.getElementsByClassName("img-container");
 
 for (var i = 0; i < imageArray.length; i++) {
     (function(index) {
-         imageArray[index].addEventListener("click", function() {
+        imageArray[index].addEventListener("click", function() {
             for(var j = 0; j < imageArray.length; j++) {
                 if(index == j) {
                     imageArray[j].classList.add("highlight");
@@ -66,9 +77,9 @@ for (var i = 0; i < imageArray.length; i++) {
                     imageArray[j].classList.remove("highlight");
                 }
             }
-          })
+        })
     })(i);
- }
+}
 
 var upscaleButton = document.getElementById("upscale-button");
 upscaleButton.addEventListener("click", function () {

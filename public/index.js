@@ -10,46 +10,49 @@
 //     });
 // });
 
-function croppers(){
+function croppers() {
     const image = document.getElementsByClassName('img-container highlight')[0].getElementsByTagName('img')[0];
     var cropper = new Cropper(image, {
-      aspectRatio: 1 / 1,
-      wheelZoomRatio: 0,
-      autoCropArea: 0,
-      strict: false,
-      guides: false,
-      highlight: false,
-      dragCrop: false,
-      dragMode: 'move',
-      cropBoxResizable: false,
-      zoomOnWheel: false,
-      scalable: false,
-      zoomalbe: false,
-      ready() {
-        this.cropper.setCropBoxData({"width":60,"height":60});
-      },
-      crop(event) {
-    
-      },
+        aspectRatio: 1 / 1,
+        wheelZoomRatio: 0,
+        autoCropArea: 0,
+        strict: false,
+        guides: false,
+        highlight: false,
+        dragCrop: false,
+        dragMode: 'move',
+        cropBoxResizable: false,
+        zoomOnWheel: false,
+        scalable: false,
+        zoomalbe: false,
+        ready() {
+            this.cropper.setCropBoxData({"width":80,"height":80});
+        },
+        crop(event) {
+
+        },
     });
-    
+
     var add = document.querySelector('#btnCrop');
-    add.addEventListener('click', function(){
-        var croppedImageDataURL = cropper.getCroppedCanvas().toDataURL("image/png");
-        var cropped = document.createElement('img');
-        cropped.setAttribute("src", croppedImageDataURL);
-        document.getElementById('crops').appendChild(cropped);
-    //    .append( $('<img>').attr('src', croppedImageDataURL));
-        console.log(croppedImageDataURL);
+    add.addEventListener('click', function() {
+        var postRequest = new XMLHttpRequest();
+        postRequest.open('POST', 'infer/');
+        //postRequest.send(cropper.getCroppedCanvas());
+        var canvas = cropper.getCroppedCanvas();
+
+        canvas.toBlob(function(blob) {
+            postRequest.send(blob);
+        });
+
     });
-    }
+}
 
 
 var imageArray = document.getElementsByClassName("img-container");
 
 for (var i = 0; i < imageArray.length; i++) {
     (function(index) {
-         imageArray[index].addEventListener("click", function() {
+        imageArray[index].addEventListener("click", function() {
             for(var j = 0; j < imageArray.length; j++) {
                 if(index == j) {
                     imageArray[j].classList.add("highlight");
@@ -58,9 +61,9 @@ for (var i = 0; i < imageArray.length; i++) {
                     imageArray[j].classList.remove("highlight");
                 }
             }
-          })
+        })
     })(i);
- }
+}
 
 var upscaleButton = document.getElementById("upscale-button");
 upscaleButton.addEventListener("click", function () {

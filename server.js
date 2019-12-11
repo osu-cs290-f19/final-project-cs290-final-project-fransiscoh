@@ -92,6 +92,14 @@ async function main(model_path, image_path) {
     await fs.writeFile('./out.png', upsized_image_data);
 }
 
+app.post('/infer', function(req, res, next) {
+    req.on('data', function(dat) { 
+        var buf = Buffer.from(dat, 'base64');
+        console.log("Img:", image_data_to_tensor(buf));
+    });
+    //console.log(req.params);
+});
+
 app.get("*", function(req, res, next) {
     console.log("404 url:", req.url);
     res.status(404).render("404", {
